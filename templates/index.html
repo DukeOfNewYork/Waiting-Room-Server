@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+hey
+<a href="{% static "script.js" %}">link text</a>
+<select id="user">
+    {% for computer in jsonlist %}
+        <option value="{{ computer }}">{{ computer }}</option>
+    {% endfor %}
+</select>
+
+<select id="state">
+    <option id="RD" value="RD">RD</option>
+    <option id="WT" value="RD">WT</option>
+</select>
+
+<button id="Save">Save</button>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{% static "script.js" %}"></script>
+</html>
