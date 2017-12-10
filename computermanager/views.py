@@ -68,23 +68,18 @@ def administration(request):
             jsonlist[computer.name] = computer.status
         print(jsonlist)
         return render(request, 'index.html', {'jsonlist': jsonlist})
-        # return JsonResponse(jsonlist, safe=False)
     if request.method == 'POST':
-        data = request.body
-        print(data)
-        jsondata = json.loads(data)
-        print(jsondata)
+        jsondata = json.loads(request.body)
         try:
             computerid = jsondata['computer']
             computerstate = jsondata['state']
-            if jsondata['computer']:
-                computer = Computer.objects.get(name=computerid)
-                computer.status = computerstate
-                computer.save()
+            computer = Computer.objects.get(name=computerid)
+            if computerid:
+                if computerstate == "RS":
+                    computer.delete()
+                else:
+                    computer.status = computerstate
+                    computer.save()
         except:
             print("nothing")
         return render(request, 'index.html')
-
-        # data = serializers.serialize("json", [jsonlist], )
-        # data = json.dumps(data)
-        # return HttpResponse(data, content_type='application/json')
